@@ -22,7 +22,7 @@ namespace Affirmations.Spectre
             while (true)
             {
                 if (!AnsiConsole.Confirm("Need some [bold green]Affirmation[/]?"))
-                    if (AnsiConsole.Confirm("Do you want to [bold red]quit[/] already?:sad_but_relieved_face:"))
+                    if (AnsiConsole.Confirm("Do you want to [bold red]quit[/] already?"))
                         return;
                     else 
                         continue;
