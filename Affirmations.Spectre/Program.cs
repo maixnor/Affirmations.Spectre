@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text.Json;
 using Spectre.Console;
 
 namespace Affirmations.Spectre
@@ -21,13 +22,18 @@ namespace Affirmations.Spectre
             while (true)
             {
                 if (!AnsiConsole.Confirm("Need some [bold green]Affirmation[/]?"))
-                    if (AnsiConsole.Confirm("Do you want to [bold red]quit[/]:sad_but_relieved_face:"))
+                    if (AnsiConsole.Confirm("Do you want to [bold red]quit[/] already?:sad_but_relieved_face:"))
                         return;
                     else 
                         continue;
-                var jsonResponse = _client.GetStringAsync("").Result;
-                AnsiConsole.Render(new Markup($"[bold red]{jsonResponse}\n[/]"));
+                var jsonObject = JsonSerializer.Deserialize<Model>(_client.GetStringAsync("").Result);
+                AnsiConsole.Render(new Markup($"[bold red]{jsonObject.affirmation}\n[/]"));
             }
         }
+    }
+
+    public struct Model
+    {
+        public string affirmation { get; set; }
     }
 }
